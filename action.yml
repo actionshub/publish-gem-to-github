@@ -1,4 +1,4 @@
-name: 'Release Gem to GitHub Packages'
+name: 'Publish Gem to GitHub Packages'
 description: 'Builds and publishes Ruby gems to GitHub Packages'
 author: 'Dan Webb'
 branding:
