@@ -1,0 +1,23 @@
+name: 'Release Gem to GitHub Packages'
+description: 'Builds and publishes Ruby gems to GitHub Packages'
+author: 'Dan Webb'
+branding:
+  color: green
+  icon: upload-cloud
+inputs:
+  token:
+    description: 'GitHub token that has access to write to GitHub package registry. You can use GITHUB_TOKEN for this.'
+    required: true
+  owner:
+    description: 'Name of the user or organization account that owns the repository containing your project.'
+    required: true
+  working-directory:
+    description: 'An optional path to switch to before building the Gem.'
+    required: false
+runs:
+  using: 'docker'
+  image: docker://ghcr.io/actionshub/publish-gem-to-github:v0.0.1
+  args:
+    - ${{ inputs.token }}
+    - ${{ inputs.owner }}
+    - ${{ inputs.working-directory }}
