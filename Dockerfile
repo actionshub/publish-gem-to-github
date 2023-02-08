@@ -1,13 +1,9 @@
-FROM ruby:3.1-alpine
+FROM ruby:3.2.0-alpine3.17
 
-LABEL "com.github.actions.name"="Publish Gem to GitHub" \
-  "com.github.actions.icon"="edit-3" \
-  "com.github.actions.color"="red" \
-  "com.github.actions.description"="Build and publish your gem to GitHub"
-
-COPY LICENSE README.md entrypoint.sh /
+COPY --chmod=750 entrypoint.sh /
+COPY Gemfile Gemfile.lock /
 
 RUN apk add --no-cache git \
-  && gem install bundler keycutter
+	&& bundle install
 
 ENTRYPOINT ["/entrypoint.sh"]
