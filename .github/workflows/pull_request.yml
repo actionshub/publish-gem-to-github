@@ -8,11 +8,14 @@ jobs:
     name: Build & Publish to GitHub Container Registry
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
     steps:
       - name: Code checkout
         uses: actions/checkout@v3
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Docker metadata
         id: meta
@@ -25,6 +28,18 @@ jobs:
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
+
+      - name: install yq
+        uses: mikefarah/yq@v4.30.8
+        with:
+          cmd: yq e -i '.runs.image = "docker://${{ steps.meta.outputs.tags }}"' action.yml
+
+      - name: Commit Changes to actions.yml
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: "Update actions.yml"
+          add: "action.yml"
+          default_author: github_actions
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
