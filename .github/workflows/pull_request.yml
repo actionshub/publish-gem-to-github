@@ -29,7 +29,7 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
 
-      - name: install yq
+      - name: Update actions.yml
         uses: mikefarah/yq@v4.30.8
         with:
           cmd: yq e -i '.runs.image = "docker://${{ steps.meta.outputs.tags }}"' action.yml

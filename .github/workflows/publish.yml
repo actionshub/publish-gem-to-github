@@ -35,7 +35,22 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/checkout@main
+      - uses: actions/checkout@v3
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Update actions.yml
+        uses: mikefarah/yq@v4.30.8
+        with:
+          cmd: yq e -i '.runs.image = "docker://${{ steps.tag_version.outputs.new_tag }}"' action.yml
+
+      - name: Commit Changes to actions.yml
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: "Update actions.yml"
+          add: "action.yml"
+          default_author: github_actions
 
       - name: Build and push
         uses: docker/build-push-action@v4
