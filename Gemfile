@@ -1,3 +1,3 @@
 source 'https://rubygems.org'
 
-gem 'keycutter'
+gem 'keycutter', '= 1.0.2'
