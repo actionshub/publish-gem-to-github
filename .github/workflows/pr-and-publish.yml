@@ -64,6 +64,7 @@ jobs:
 
       - name: Commit Changes to actions.yml
         uses: EndBug/add-and-commit@v9
+        if: github.event_name == 'pull_request'
         with:
           message: "Update actions.yml"
           add: "action.yml"
