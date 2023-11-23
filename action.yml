@@ -17,7 +17,7 @@ inputs:
     default: "."
 runs:
   using: "docker"
-  image: docker://ghcr.io/actionshub/publish-gem-to-github:v1.0.6
+  image: docker://ghcr.io/actionshub/publish-gem-to-github:v1.0.7
   args:
     - ${{ inputs.token }}
     - ${{ inputs.owner }}
