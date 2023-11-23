@@ -9,11 +9,12 @@ inputs:
     description: "GitHub token that has access to write to GitHub package registry. You can use GITHUB_TOKEN for this."
     required: true
   owner:
-    description: "Name of the user or organization account that owns the repository containing your project."
-    required: true
+    description: "Name of the user or organization account that owns the repository containing your project. Defaults to $GITHUB_REPOSITORY_OWNER"
+    required: false
   working-directory:
     description: "An optional path to switch to before building the Gem."
     required: false
+    default: "."
 runs:
   using: "docker"
   image: docker://ghcr.io/actionshub/publish-gem-to-github:v1.0.6
