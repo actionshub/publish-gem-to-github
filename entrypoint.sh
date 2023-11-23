@@ -24,7 +24,7 @@ function auth_github() {
   echo ":github: Bearer ${1}" > ~/.gem/credentials
 }
 
-function build() {
+function build_and_push() {
   cd "${1}" || exit 1
   echo "Building gem"
   find . -name '*.gemspec' -maxdepth 1 -exec gem build {} \;
