@@ -10,8 +10,7 @@ TOKEN="${INPUT_TOKEN}"
 OWNER="${INPUT_OWNER:-$GITHUB_REPOSITORY_OWNER}"
 [ -z "${OWNER}" ] && { echo "Error: no owner set"; exit 2; }
 
-WORKING_DIRECTORY="${INPUT_WORKING_DIRECTORY}"
-[ -z "${WORKING_DIRECTORY}" ] && { echo "Error: missing working directory"; exit 2; }
+WORKING_DIRECTORY="${INPUT_WORKING_DIRECTORY:-.}"
 
 function setup_credentials_file() {
   echo "Setting up access to RubyGems"
