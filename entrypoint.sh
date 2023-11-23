@@ -4,12 +4,13 @@ cd "${GITHUB_WORKSPACE}" || exit 1
 
 git config --global --add safe.directory "${GITHUB_WORKSPACE}"
 
-GITHUB_TOKEN="${INPUT_GITHUB_TOKEN}"
-OWNER="${INPUT_OWNER:-$GITHUB_REPOSITORY_OWNER}"
-WORKING_DIRECTORY="${INPUT_OWNER}"
+TOKEN="${INPUT_TOKEN}"
+[ -z "${TOKEN}" ] && { echo "Error: Missing token"; exit 2; }
 
-[ -z "${GITHUB_TOKEN}" ] && { echo "Error: Missing token"; exit 2; }
+OWNER="${INPUT_OWNER:-$GITHUB_REPOSITORY_OWNER}"
 [ -z "${OWNER}" ] && { echo "Error: no owner set"; exit 2; }
+
+WORKING_DIRECTORY="${INPUT_WORKING_DIRECTORY}"
 [ -z "${WORKING_DIRECTORY}" ] && { echo "Error: missing working directory"; exit 2; }
 
 function setup_credentials_file() {
